@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Webcam Health - Guided Test</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <h1>Webcam Health - Guided Test</h1>
+      <p class="sub">A: keep still. B: move naturally and gently tilt the lid.</p>
+    </header>
+
+    <main class="layout">
+      <section class="card preview">
+        <div class="video-wrap">
+          <video id="video" autoplay playsinline muted></video>
+          <canvas id="canvas" class="hidden" aria-hidden="true"></canvas>
+          <div id="fallback" class="fallback hidden"><span>Camera preview unavailable</span></div>
+        </div>
+      </section>
+
+      <section class="card controls">
+        <div class="controls-row">
+          <div class="duration">
+            <button class="btn" id="dec">-5s</button>
+            <div class="value"><span id="duration">15</span>s</div>
+            <button class="btn" id="inc">+5s</button>
+          </div>
+
+          <div class="sensitivity">
+            <label for="sensitivity">Sensitivity</label>
+            <input type="range" id="sensitivity" min="1" max="5" step="1" value="3" />
+            <div class="s-label" id="sLabel">Balanced</div>
+          </div>
+
+          <div class="dev-toggle">
+            <button class="btn subtle" id="devToggle" title="Show simulation tools">Dev tools</button>
+          </div>
+
+          <button class="btn primary" id="start">Start Test</button>
+        </div>
+
+        <div id="devPanel" class="dev hidden">
+          <button class="btn" id="simFreeze">Simulate freeze 1s</button>
+          <label class="dev-row">Drop every
+            <input id="simDropN" type="number" min="2" value="10" /> frames (+
+            <input id="simDropMs" type="number" min="10" value="120" />ms)
+          </label>
+          <label class="dev-row"><input id="simBanding" type="checkbox" /> Inject banding</label>
+        </div>
+
+        <div class="status">
+          <div class="ring">
+            <svg viewBox="0 0 140 140" class="ring-svg">
+              <circle cx="70" cy="70" r="58" class="bg" />
+              <circle cx="70" cy="70" r="58" class="fg" id="ring" />
+            </svg>
+            <div class="ring-label" id="ringLabel">Ready</div>
+          </div>
+          <div class="info">
+            <div class="line"><span id="mode">SETUP</span> <span id="stage"></span></div>
+            <div class="line" id="details"></div>
+            <div class="line rt"><span class="dot" id="rtDot"></span><span id="rtText">Keep this tab visible</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card results hidden" id="results">
+        <h2>Results</h2>
+        <div class="result-grid">
+          <div class="res-card">
+            <div class="label">Static</div>
+            <div class="score" id="staticScore">-</div>
+            <div class="meta" id="staticMeta"></div>
+          </div>
+          <div class="res-card">
+            <div class="label">Motion</div>
+            <div class="score" id="motionScore">-</div>
+            <div class="meta" id="motionMeta"></div>
+          </div>
+          <div class="res-card wide">
+            <div class="label">Total</div>
+            <div class="score" id="totalScore">-</div>
+            <div class="meta" id="totalVerdict"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+</html>
